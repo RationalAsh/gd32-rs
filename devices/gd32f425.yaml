@@ -19,3 +19,4 @@ _include:
   - ../peripherals/dbg/dbg_f4.yaml
   - ../peripherals/iref/iref_f4.yaml
   - ../peripherals/adc/adc_f4.yaml
+  - ../peripherals/timer/timer_f4.yaml

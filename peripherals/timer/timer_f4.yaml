@@ -1,7 +1,4 @@
 TIMER[1-4]:
-  _modify:
-    CHCTL0_Output:
-      name: "CHCTL0"
   CTL0:
     CKDIV:
       CKDIV0: [0, "Clock division factor 1"]
@@ -277,7 +274,7 @@ TIMER[1-4]:
           else (down counting) it takes the auto-reload value. The prescaler counter is cleared
           at the same time.",
         ]
-  CHCTL0:
+  CHCTL0_Output:
     CH1COMCEN:
       Disabled: [0, "Channel 1 output compare clear disabled."]
       Enabled: [1, "Channel 1 compare clear enabled."]

@@ -249,3 +249,28 @@ TIMER[1-4]:
     UPIF:
       Clear: [0, "No update interrupt occurred."]
       UpdatePending: [1, "Update interrupt pending."]
+  SWEVG:
+    TRGG:
+      Trigger: [
+          1,
+          "Trigger event generation
+          This bit is set by software and cleared by hardware automatically. When this bit is
+          set, the TRGIF flag in TIMERx_STAT register is set, related interrupt or DMA
+          transfer can occur if enabled.",
+        ]
+    CH3G:
+      Channel3: [1, "Channel 3’s capture or compare event generation."]
+    CH2G:
+      Channel2: [1, "Channel 2’s capture or compare event generation."]
+    CH1G:
+      Channel1: [1, "Channel 1’s capture or compare event generation."]
+    CH0G:
+      Channel0: [1, "Channel 0’s capture or compare event generation."]
+    UPG:
+      Update: [
+          1,
+          "This bit can be set by software, and cleared by hardware automatically. When this
+          bit is set, the counter is cleared if the center-aligned or up counting mode is selected,
+          else (down counting) it takes the auto-reload value. The prescaler counter is cleared
+          at the same time.",
+        ]

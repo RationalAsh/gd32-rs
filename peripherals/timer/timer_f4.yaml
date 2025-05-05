@@ -582,3 +582,37 @@ TIMER[1-4]:
       InputCI1: [1, "Channel 3 is programmed as input mode, IS3 is connected to CI2FE3"]
       InputCI0: [2, "Channel 3 is programmed as input mode, IS3 is connected to CI3FE3"]
       InputITS: [3, "Channel 3 is programmed as input mode, IS3 is connected to ITS"]
+  CHCTL2:
+    CH3P:
+      Active: [0, "Channel 3 capture / compare polarity active high."]
+      Inactive: [1, "Channel 3 capture / compare polarity active low."]
+    CH3EN:
+      Disabled: [0, "Channel 3 capture / compare disabled."]
+      Enabled: [1, "Channel 3 capture / compare  enabled."]
+    CH2NP:
+      Active: [0, "Channel 2 complementary capture / compare polarity active high."]
+      Inactive: [1, "Channel 2 complementary capture / compare polarity active low."]
+    CH2P:
+      Active: [0, "Channel 2 capture / compare polarity active high."]
+      Inactive: [1, "Channel 2 capture / compare polarity active low."]
+    CH2EN:
+      Disabled: [0, "Channel 2 capture / compare disabled."]
+      Enabled: [1, "Channel 2 capture / compare enabled."]
+    CH1NP:
+      Active: [0, "Channel 1 complementary capture / compare polarity active high."]
+      Inactive: [1, "Channel 1 complementary capture / compare polarity active low."]
+    CH1P:
+      Active: [0, "Channel 1 capture / compare polarity active high."]
+      Inactive: [1, "Channel 1 capture / compare polarity active low."]
+    CH1EN:
+      Disabled: [0, "Channel 1 capture / compare disabled."]
+      Enabled: [1, "Channel 1 capture / compare enabled."]
+    CH0NP:
+      Active: [0, "Channel 0 complementary capture / compare polarity active high."]
+      Inactive: [1, "Channel 0 complementary capture / compare polarity active low."]
+    CH0P:
+      Active: [0, "Channel 0 capture / compare polarity active high."]
+      Inactive: [1, "Channel 0 capture / compare polarity active low."]
+    CH0EN:
+      Disabled: [0, "Channel 0 capture / compare disabled."]
+      Enabled: [1, "Channel 0 capture / compare enabled."]

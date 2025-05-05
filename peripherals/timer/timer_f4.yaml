@@ -1,4 +1,7 @@
 TIMER[1-4]:
+  _modify:
+    CHCTL0_Output:
+      name: "CHCTL0"
   CTL0:
     CKDIV:
       CKDIV0: [0, "Clock division factor 1"]
@@ -274,3 +277,102 @@ TIMER[1-4]:
           else (down counting) it takes the auto-reload value. The prescaler counter is cleared
           at the same time.",
         ]
+  CHCTL0:
+    CH1COMCEN:
+      Disabled: [0, "Channel 1 output compare clear disabled."]
+      Enabled: [1, "Channel 1 compare clear enabled."]
+    CH1COMSEN:
+      Disabled: [0, "Channel 1 output compare shadow disabled."]
+      Enabled: [1, "Channel 1 compare shadow enabled."]
+    CH1COMFEN:
+      Disabled: [0, "Channel 1 output compare fast disabled."]
+      Enabled: [1, "Channel 1 compare fast enabled."]
+    CH1MS:
+      Output: [0, "Channel 1 output mode."]
+      InputCI1: [1, "Channel 1 is programmed as input mode, IS1 is connected to CI1FE1"]
+      InputCI0: [2, "Channel 1 is programmed as input mode, IS1 is connected to CI0FE1"]
+      InputITS: [3, "Channel 1 is programmed as input mode, IS1 is connected to ITS"]
+    CH0COMCEN:
+      Disabled: [0, "Channel 0 output compare clear disabled."]
+      Enabled: [1, "Channel 0 compare clear enabled."]
+    CH0COMCTL:
+      Mode0: [
+          0,
+          "Timing mode. The O0CPRE signal keeps stable, independent of the
+          comparison between the register TIMERx_CH0CV and the counter TIMERx_CNT.",
+        ]
+      Mode1: [
+          1,
+          "Set the channel output. O0CPRE signal is forced high when the counter is
+          equals to the output compare register TIMERx_CH0CV.",
+        ]
+      Mode2: [
+          2,
+          "Clear the channel output. O0CPRE signal is forced low when the counter is
+          equals to the output compare register TIMERx_CH0CV.",
+        ]
+      Mode3: [
+          3,
+          "Toggle on match. O0CPRE toggles when the counter is equals to the output
+          compare register TIMERx_CH0CV.",
+        ]
+      Mode4: [4, "Force low. O0CPRE is forced to low level."]
+      Mode5: [5, "Force high. O0CPRE is forced to high level."]
+      PWMMode0: [
+          6,
+          "PWM mode0. When counting up, O0CPRE is high when the counter is smaller
+          than TIMERx_CH0CV, and low otherwise. When counting down, O0CPRE is low
+          when the counter is larger than TIMERx_CH0CV, and high otherwise.",
+        ]
+      PWMMode1: [
+          7,
+          "PWM mode1. When counting up, O0CPRE is low when the counter is smaller
+          than TIMERx_CH0CV, and high otherwise. When counting down, O0CPRE is high
+          when the counter is larger than TIMERx_CH0CV, and low otherwise.",
+        ]
+    CH1COMCTL:
+      Mode0: [
+          0,
+          "Timing mode. The O1CPRE signal keeps stable, independent of the
+          comparison between the register TIMERx_CH1CV and the counter TIMERx_CNT.",
+        ]
+      Mode1: [
+          1,
+          "Set the channel output. O1CPRE signal is forced high when the counter is
+          equals to the output compare register TIMERx_CH1CV.",
+        ]
+      Mode2: [
+          2,
+          "Clear the channel output. O1CPRE signal is forced low when the counter is
+          equals to the output compare register TIMERx_CH1CV.",
+        ]
+      Mode3: [
+          3,
+          "Toggle on match. O1CPRE toggles when the counter is equals to the output
+          compare register TIMERx_CH1CV.",
+        ]
+      Mode4: [4, "Force low. O1CPRE is forced to low level."]
+      Mode5: [5, "Force high. O1CPRE is forced to high level."]
+      PWMMode0: [
+          6,
+          "PWM mode0. When counting up, O1CPRE is high when the counter is smaller
+          than TIMERx_CH1CV, and low otherwise. When counting down, O1CPRE is low
+          when the counter is larger than TIMERx_CH1CV, and high otherwise.",
+        ]
+      PWMMode1: [
+          7,
+          "PWM mode1. When counting up, O1CPRE is low when the counter is smaller
+          than TIMERx_CH1CV, and high otherwise. When counting down, O1CPRE is high
+          when the counter is larger than TIMERx_CH1CV, and low otherwise.",
+        ]
+    CH0COMSEN:
+      Disabled: [0, "Channel 0 output compare shadow disabled."]
+      Enabled: [1, "Channel 0 compare shadow enabled."]
+    CH0COMFEN:
+      Disabled: [0, "Channel 0 output compare fast disabled."]
+      Enabled: [1, "Channel 0 compare fast enabled."]
+    CH0MS:
+      Output: [0, "Channel 0 output mode."]
+      InputCI1: [1, "Channel 0 is programmed as input mode, IS0 is connected to CI0FE0"]
+      InputCI0: [2, "Channel 0 is programmed as input mode, IS0 is connected to CI1FE0"]
+      InputITS: [3, "Channel 0 is programmed as input mode, IS0 is connected to ITS"]

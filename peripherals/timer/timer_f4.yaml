@@ -181,3 +181,40 @@ TIMER[1-4]:
           "External clock mode 0. The counter counts on the rising edges of the selected
           trigger.",
         ]
+  DMAINTEN:
+    TRGDEN:
+      Disabled: [0, "Trigger DMA request disabled."]
+      Enabled: [1, "Trigger DMA request enabled."]
+    CH3DEN:
+      Disabled: [0, "Channel 3 capture/compare DMA request disabled."]
+      Enabled: [1, "Channel 3 capture/compare DMA request enabled."]
+    CH2DEN:
+      Disabled: [0, "Channel 2 capture/compare DMA request disabled."]
+      Enabled: [1, "Channel 2 capture/compare DMA request enabled."]
+    CH1DEN:
+      Disabled: [0, "Channel 1 capture/compare DMA request disabled."]
+      Enabled: [1, "Channel 1 capture/compare DMA request enabled."]
+    CH0DEN:
+      Disabled: [0, "Channel 0 capture/compare DMA request disabled."]
+      Enabled: [1, "Channel 0 capture/compare DMA request enabled."]
+    UPDEN:
+      Disabled: [0, "Update DMA request disabled."]
+      Enabled: [1, "Update DMA request enabled."]
+    TRGIE:
+      Disabled: [0, "Trigger interrupt disabled."]
+      Enabled: [1, "Trigger interrupt enabled."]
+    CH3IE:
+      Disabled: [0, "Channel 3 capture/compare interrupt disabled."]
+      Enabled: [1, "Channel 3 capture/compare interrupt enabled."]
+    CH2IE:
+      Disabled: [0, "Channel 2 capture/compare interrupt disabled."]
+      Enabled: [1, "Channel 2 capture/compare interrupt enabled."]
+    CH1IE:
+      Disabled: [0, "Channel 1 capture/compare interrupt disabled."]
+      Enabled: [1, "Channel 1 capture/compare interrupt enabled."]
+    CH0IE:
+      Disabled: [0, "Channel 0 capture/compare interrupt disabled."]
+      Enabled: [1, "Channel 0 capture/compare interrupt enabled."]
+    UPIE:
+      Disabled: [0, "Update interrupt disabled."]
+      Enabled: [1, "Update interrupt enabled."]

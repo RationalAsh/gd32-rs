@@ -428,3 +428,102 @@ TIMER[1-4]:
       InputCI1: [1, "Channel 1 is programmed as input mode, IS1 is connected to CI0FE1"]
       InputCI0: [2, "Channel 1 is programmed as input mode, IS1 is connected to CI1FE1"]
       InputITS: [3, "Channel 1 is programmed as input mode, IS1 is connected to ITS"]
+  CHCTL1_Output:
+    CH3COMCEN:
+      Disabled: [0, "Channel 3 output compare clear disabled."]
+      Enabled: [1, "Channel 3 compare clear enabled."]
+    CH3COMSEN:
+      Disabled: [0, "Channel 3 output compare shadow disabled."]
+      Enabled: [1, "Channel 3 compare shadow enabled."]
+    CH3COMFEN:
+      Disabled: [0, "Channel 3 output compare fast disabled."]
+      Enabled: [1, "Channel 3 compare fast enabled."]
+    CH3MS:
+      Output: [0, "Channel 3 output mode."]
+      InputCI1: [1, "Channel 3 is programmed as input mode, IS3 is connected to CI2FE3"]
+      InputCI0: [2, "Channel 3 is programmed as input mode, IS3 is connected to CI2FE3"]
+      InputITS: [3, "Channel 3 is programmed as input mode, IS3 is connected to ITS"]
+    CH2COMCEN:
+      Disabled: [0, "Channel 2 output compare clear disabled."]
+      Enabled: [1, "Channel 2 compare clear enabled."]
+    CH2COMCTL:
+      Mode0: [
+          0,
+          "Timing mode. The O2CPRE signal keeps stable, independent of the
+          comparison between the register TIMERx_CH2CV and the counter TIMERx_CNT.",
+        ]
+      Mode1: [
+          1,
+          "Set the channel output. O2CPRE signal is forced high when the counter is
+          equals to the output compare register TIMERx_CH2CV.",
+        ]
+      Mode2: [
+          2,
+          "Clear the channel output. O2CPRE signal is forced low when the counter is
+          equals to the output compare register TIMERx_CH2CV.",
+        ]
+      Mode3: [
+          3,
+          "Toggle on match. O2CPRE toggles when the counter is equals to the output
+          compare register TIMERx_CH2CV.",
+        ]
+      Mode4: [4, "Force low. O2CPRE is forced to low level."]
+      Mode5: [5, "Force high. O2CPRE is forced to high level."]
+      PWMMode0: [
+          6,
+          "PWM mode0. When counting up, O2CPRE is high when the counter is smaller
+          than TIMERx_CH2CV, and low otherwise. When counting down, O2CPRE is low
+          when the counter is larger than TIMERx_CH2CV, and high otherwise.",
+        ]
+      PWMMode1: [
+          7,
+          "PWM mode1. When counting up, O2CPRE is low when the counter is smaller
+          than TIMERx_CH2CV, and high otherwise. When counting down, O2CPRE is high
+          when the counter is larger than TIMERx_CH2CV, and low otherwise.",
+        ]
+    CH3COMCTL:
+      Mode0: [
+          0,
+          "Timing mode. The O3CPRE signal keeps stable, independent of the
+          comparison between the register TIMERx_CH3CV and the counter TIMERx_CNT.",
+        ]
+      Mode1: [
+          1,
+          "Set the channel output. O3CPRE signal is forced high when the counter is
+          equals to the output compare register TIMERx_CH3CV.",
+        ]
+      Mode2: [
+          2,
+          "Clear the channel output. O3CPRE signal is forced low when the counter is
+          equals to the output compare register TIMERx_CH3CV.",
+        ]
+      Mode3: [
+          3,
+          "Toggle on match. O3CPRE toggles when the counter is equals to the output
+          compare register TIMERx_CH3CV.",
+        ]
+      Mode4: [4, "Force low. O3CPRE is forced to low level."]
+      Mode5: [5, "Force high. O3CPRE is forced to high level."]
+      PWMMode0: [
+          6,
+          "PWM mode0. When counting up, O3CPRE is high when the counter is smaller
+          than TIMERx_CH3CV, and low otherwise. When counting down, O3CPRE is low
+          when the counter is larger than TIMERx_CH3CV, and high otherwise.",
+        ]
+      PWMMode1: [
+          7,
+          "PWM mode1. When counting up, O3CPRE is low when the counter is smaller
+          than TIMERx_CH3CV, and high otherwise. When counting down, O3CPRE is high
+          when the counter is larger than TIMERx_CH3CV, and low otherwise.",
+        ]
+    CH2COMSEN:
+      Disabled: [0, "Channel 2 output compare shadow disabled."]
+      Enabled: [1, "Channel 2 compare shadow enabled."]
+    CH2COMFEN:
+      Disabled: [0, "Channel 2 output compare fast disabled."]
+      Enabled: [1, "Channel 2 compare fast enabled."]
+    CH2MS:
+      Output: [0, "Channel 2 output mode."]
+      InputCI1: [1, "Channel 2 is programmed as input mode, IS2 is connected to CI2FE2"]
+      InputCI0: [2, "Channel 2 is programmed as input mode, IS2 is connected to CI3FE2"]
+      InputITS: [3, "Channel 2 is programmed as input mode, IS2 is connected to ITS"]

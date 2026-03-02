@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  svd2rust-version: 0.32.0
+
 jobs:
   check:
     name: Check
@@ -25,7 +28,7 @@ jobs:
       CARGO_INCREMENTAL: 0
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -42,17 +45,17 @@ jobs:
       - name: Put pip binary directory into path
         run: echo "~/.local/bin" >> $GITHUB_PATH
       - name: Cache Cargo installed binaries
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-cargo
         with:
           path: ~/cargo-bin
-          key: ${{ runner.os }}-svd2rust-0.32.0
+          key: ${{ runner.os }}-svd2rust-${{ env.svd2rust-version }}
       - name: Install svd2rust
         if: steps.cache-cargo.outputs.cache-hit != 'true'
-        uses: actions-rs/install@v0.1
+        uses: actions-rs/cargo@v1
         with:
-          crate: svd2rust
-          version: 0.32.0
+          command: install
+          args: svd2rust --locked --version ${{ env.svd2rust-version }}
       - name: Copy svd2rust to cache directory
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         run: |

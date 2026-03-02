@@ -4,13 +4,16 @@ on:
     branches:
       - main
 
+env:
+  svd2rust-version: 0.32.0
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: gd32-rs
       - name: Install Python dependencies
@@ -27,17 +30,17 @@ jobs:
           components: rustfmt
           override: true
       - name: Cache Cargo installed binaries
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-cargo
         with:
           path: ~/cargo-bin
-          key: ${{ runner.os }}-cargo-binaries-0.32.0
+          key: ${{ runner.os }}-cargo-binaries-${{ env.svd2rust-version }}
       - name: Install svd2rust
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         uses: actions-rs/cargo@v1
         with:
           command: install
-          args: svd2rust --version 0.32.0
+          args: svd2rust --locked --version ${{ env.svd2rust-version }}
       - name: Install form
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         uses: actions-rs/cargo@v1

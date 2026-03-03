@@ -1085,3 +1085,199 @@ TIMER[1-4]:
     CHVSEL:
       Disabled: [0, "No effect"]
       Enabled: [1, "If write CHxVAL value equals current value, write access is ignored"]
+
+# General Level 2 timers (TIMER9, TIMER10, TIMER12, TIMER13) are single-channel timers with:
+# - Input capture and output compare
+# - PWM generation  
+# - Up counting only
+# - No external trigger input or slave mode
+# Note: The SVD file is missing the CTL1 register (master mode control) documented
+# in the user manual at offset 0x04. This is a known SVD limitation.
+
+"TIMER[9],TIMER1[023]":
+  # Control register 0 - Simplified compared to other timers
+  CTL0:
+    CKDIV:
+      CKDIV0: [0, "Clock division factor 1"]
+      CKDIV1: [1, "Clock division factor 2"]
+      CKDIV2: [2, "Clock division factor 4"]
+    ARSE:
+      Disabled: [0, "The shadow register for CAR is disabled"]
+      Enabled: [1, "The shadow register for CAR is enabled"]
+    UPS:
+      AnyEvent: [
+          0,
+          "Any of counter overflow/underflow, setting UPG generates an update interrupt or DMA request",
+        ]
+      CounterOnly:
+        [1, "Only counter overflow/underflow generates an update interrupt or DMA request"]
+    UPDIS:
+      Enabled: [0, "Update event enabled"]
+      Disabled: [1, "Update event disabled"]
+    CEN:
+      Disabled: [0, "Counter disabled"]
+      Enabled: [1, "Counter enabled"]
+  
+  # DMA and interrupt enable register (single channel only)
+  DMAINTEN:
+    CH0IE:
+      Disabled: [0, "Channel 0 capture/compare interrupt disabled."]
+      Enabled: [1, "Channel 0 capture/compare interrupt enabled."]
+    UPIE:
+      Disabled: [0, "Update interrupt disabled."]
+      Enabled: [1, "Update interrupt enabled."]
+  
+  # Interrupt flag register (single channel only)
+  INTF:
+    CH0OF:
+      Clear: [0, "No channel 0 overflow/underflow interrupt occurred."]
+      OverflowPending: [1, "Channel 0 overflow/underflow interrupt pending."]
+    CH0IF:
+      Clear: [0, "No channel 0 capture/compare interrupt enable."]
+      CapturePending: [1, "Channel 0 capture/compare interrupt enable."]
+    UPIF:
+      Clear: [0, "No update interrupt occurred."]
+      UpdatePending: [1, "Update interrupt pending."]
+  
+  # Software event generation register (single channel only)
+  SWEVG:
+    CH0G:
+      Channel0: [1, "Channel 0's capture or compare event generation."]
+    UPG:
+      Update: [
+          1,
+          "This bit can be set by software, and cleared by hardware automatically. When this
+          bit is set, the counter is cleared if the center-aligned or up counting mode is selected,
+          else (down counting) it takes the auto-reload value. The prescaler counter is cleared
+          at the same time.",
+        ]
+  
+  # Channel control register 0 - Output mode (single channel only)
+  CHCTL0_Output:
+    CH0COMCTL:
+      Mode0: [
+          0,
+          "Timing mode. The O0CPRE signal keeps stable, independent of the
+          comparison between the register TIMERx_CH0CV and the counter TIMERx_CNT.",
+        ]
+      Mode1: [
+          1,
+          "Set the channel output. O0CPRE signal is forced high when the counter is
+          equals to the output compare register TIMERx_CH0CV.",
+        ]
+      Mode2: [
+          2,
+          "Clear the channel output. O0CPRE signal is forced low when the counter is
+          equals to the output compare register TIMERx_CH0CV.",
+        ]
+      Mode3: [
+          3,
+          "Toggle on match. O0CPRE toggles when the counter is equals to the output
+          compare register TIMERx_CH0CV.",
+        ]
+      Mode4: [4, "Force low. O0CPRE is forced to low level."]
+      Mode5: [5, "Force high. O0CPRE is forced to high level."]
+      PWMMode0: [
+          6,
+          "PWM mode0. When counting up, O0CPRE is high when the counter is smaller
+          than TIMERx_CH0CV, and low otherwise.",
+        ]
+      PWMMode1: [
+          7,
+          "PWM mode1. When counting up, O0CPRE is low when the counter is smaller
+          than TIMERx_CH0CV, and high otherwise.",
+        ]
+    CH0COMSEN:
+      Disabled: [0, "Channel 0 output compare shadow disabled."]
+      Enabled: [1, "Channel 0 compare shadow enabled."]
+    CH0COMFEN:
+      Disabled: [0, "Channel 0 output compare fast disabled."]
+      Enabled: [1, "Channel 0 compare fast enabled."]
+    CH0MS:
+      Output: [0, "Channel 0 output mode."]
+      InputCI1: [1, "Channel 0 is programmed as input mode, IS0 is connected to CI0FE0"]
+      InputCI0: [2, "Channel 0 is programmed as input mode, IS0 is connected to CI1FE0"]
+      InputITS: [3, "Channel 0 is programmed as input mode, IS0 is connected to ITS"]
+  
+  # Channel control register 0 - Input mode (single channel only)
+  CHCTL0_Input:
+    CH0CAPFLT:
+      Disabled: [0, "Channel 0 input filter disabled."]
+      CAPACITY1: [1, "Channel 0 input filter capacity is 2, f_samp is fck_timer"]
+      CAPACITY2: [2, "Channel 0 input filter capacity is 4, f_samp is fck_timer"]
+      CAPACITY3: [3, "Channel 0 input filter capacity is 8, f_samp is fck_timer"]
+      CAPACITY4: [4, "Channel 0 input filter capacity is 6, f_samp is f_dts / 2"]
+      CAPACITY5: [5, "Channel 0 input filter capacity is 8, f_samp is f_dts / 2"]
+      CAPACITY6: [6, "Channel 0 input filter capacity is 6, f_samp is f_dts / 4"]
+      CAPACITY7: [7, "Channel 0 input filter capacity is 8, f_samp is f_dts / 4"]
+      CAPACITY8: [8, "Channel 0 input filter capacity is 6, f_samp is f_dts / 8"]
+      CAPACITY9: [9, "Channel 0 input filter capacity is 8, f_samp is f_dts / 8"]
+      CAPACITY10: [10, "Channel 0 input filter capacity is 5, f_samp is f_dts / 16"]
+      CAPACITY11: [11, "Channel 0 input filter capacity is 6, f_samp is f_dts / 16"]
+      CAPACITY12: [12, "Channel 0 input filter capacity is 8, f_samp is f_dts / 16"]
+      CAPACITY13: [13, "Channel 0 input filter capacity is 5, f_samp is f_dts / 32"]
+      CAPACITY14: [14, "Channel 0 input filter capacity is 6, f_samp is f_dts / 32"]
+      CAPACITY15: [15, "Channel 0 input filter capacity is 8, f_samp is f_dts / 32"]
+    CH0CAPPSC:
+      Disabled: [0, "Channel 0 input capture prescaler disabled."]
+      DIV2: [1, "Channel 0 The input capture occurs on every 2 channel input edges"]
+      DIV4: [2, "Channel 0 The input capture occurs on every 4 channel input edges"]
+      DIV8: [3, "Channel 0 The input capture occurs on every 8 channel input edges"]
+    CH0MS:
+      Output: [0, "Channel 0 output mode."]
+      InputCI1: [1, "Channel 0 is programmed as input mode, IS0 is connected to CI0FE0"]
+      InputCI0: [2, "Channel 0 is programmed as input mode, IS0 is connected to CI1FE0"]
+      InputITS: [3, "Channel 0 is programmed as input mode, IS0 is connected to ITS"]
+  
+  # Channel control register 2 (single channel only)
+  CHCTL2:
+    CH0NP:
+      Active: [0, "Channel 0 complementary capture / compare polarity active high."]
+      Inactive: [1, "Channel 0 complementary capture / compare polarity active low."]
+    CH0P:
+      Active: [0, "Channel 0 capture / compare polarity active high."]
+      Inactive: [1, "Channel 0 capture / compare polarity active low."]
+    CH0EN:
+      Disabled: [0, "Channel 0 capture / compare disabled."]
+      Enabled: [1, "Channel 0 capture / compare enabled."]
+  
+  # Counter register (16-bit)
+  CNT:
+    CNT: [0, 0xFFFF]
+  
+  # Prescaler register (16-bit)
+  PSC:
+    PSC: [0, 0xFFFF]
+  
+  # Counter auto reload register (16-bit)
+  CAR:
+    CARL: [0, 0xFFFF]
+  
+  # Channel 0 capture/compare value register (16-bit)
+  CH0CV:
+    CH0VAL: [0, 0xFFFF]
+  
+  # Configuration register
+  CFG:
+    CHVSEL:
+      Disabled: [0, "No effect"]
+      Enabled: [1, "If write CHxVAL value equals current value, write access is ignored"]
+
+# TIMER9 has additional IRMP register with ITI1_RMP field
+TIMER9:
+  IRMP:
+    ITI1_RMP:
+      RTC: [0, "TIMER9 internal trigger input 1 is connected to RTC_ALARM output"]
+      Reserved1: [1, "Reserved"]
+      Reserved2: [2, "Reserved"]
+      Reserved3: [3, "Reserved"]
+
+# TIMER10 has additional IRMP register with ITI1_RMP field  
+TIMER10:
+  IRMP:
+    ITI1_RMP:
+      GPIO: [0, "TIMER10 internal trigger input 1 is connected to GPIO"]
+      LSI: [1, "TIMER10 internal trigger input 1 is connected to LSI clock"]
+      LSE: [2, "TIMER10 internal trigger input 1 is connected to LSE clock"]
+      RTC: [3, "TIMER10 internal trigger input 1 is connected to RTC wakeup event"]
+

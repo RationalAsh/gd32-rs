@@ -20,3 +20,4 @@ _include:
   - ../peripherals/iref/iref_f4.yaml
   - ../peripherals/adc/adc_f4.yaml
   - ../peripherals/timer/timer_f4.yaml
+  - ../peripherals/can/can_f4.yaml

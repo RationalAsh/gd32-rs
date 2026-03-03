@@ -1281,3 +1281,85 @@ TIMER10:
       LSE: [2, "TIMER10 internal trigger input 1 is connected to LSE clock"]
       RTC: [3, "TIMER10 internal trigger input 1 is connected to RTC wakeup event"]
 
+# Basic timers (TIMER5, TIMER6) are the simplest timer type with:
+# - 16-bit up counter only
+# - No input capture or output compare
+# - No channels
+# - No slave mode (master mode output only)
+# - Update event and DMA request generation
+# - Used primarily for timebase generation and triggering DAC
+
+"TIMER[56]":
+  # Control register 0 - Simplified, no CKDIV, CAM, or DIR
+  CTL0:
+    ARSE:
+      Disabled: [0, "The shadow register for CAR is disabled"]
+      Enabled: [1, "The shadow register for CAR is enabled"]
+    SPM:
+      Disabled: [0, "Single pulse mode disabled. The counter continues after update event."]
+      Enabled: [1, "Single pulse mode enabled. The counter counts until the next update event occurs."]
+    UPS:
+      AnyEvent: [
+          0,
+          "Update event occurs on counter overflow, setting UPG bit, or slave mode update",
+        ]
+      CounterOnly:
+        [1, "Update event occurs only on counter overflow"]
+    UPDIS:
+      Enabled: [0, "Update event enabled"]
+      Disabled: [1, "Update event disabled"]
+    CEN:
+      Disabled: [0, "Counter disabled"]
+      Enabled: [1, "Counter enabled"]
+  
+  # Control register 1 - Master mode control only
+  CTL1:
+    MMC:
+      Reset: [
+          0,
+          "When a counter reset event occurs, a TRGO trigger signal is output. Counter reset sources: master timer generates reset or UPG bit is set",
+        ]
+      Enable: [
+          1,
+          "When a counter start event occurs, a TRGO trigger signal is output. Counter start sources: CEN bit is set or trigger input in pause mode is high",
+        ]
+      Update: [
+          2,
+          "When an update event occurs, a TRGO trigger signal is output. Update source depends on UPDIS and UPS bits",
+        ]
+  
+  # DMA and interrupt enable register - Update only
+  DMAINTEN:
+    UPDEN:
+      Disabled: [0, "Update DMA request disabled"]
+      Enabled: [1, "Update DMA request enabled"]
+    UPIE:
+      Disabled: [0, "Update interrupt disabled"]
+      Enabled: [1, "Update interrupt enabled"]
+  
+  # Interrupt flag register - Update only
+  INTF:
+    UPIF:
+      Clear: [0, "No update interrupt occurred"]
+      UpdatePending: [1, "Update interrupt occurred"]
+  
+  # Software event generation register - Update only
+  SWEVG:
+    UPG:
+      Update: [
+          1,
+          "Generate an update event. Counter is cleared and prescaler counter is cleared. This bit is set by software and cleared by hardware automatically",
+        ]
+  
+  # Counter register (16-bit)
+  CNT:
+    CNT: [0, 0xFFFF]
+  
+  # Prescaler register (16-bit)
+  PSC:
+    PSC: [0, 0xFFFF]
+  
+  # Counter auto reload register (16-bit)
+  CAR:
+    CAR: [0, 0xFFFF]
+

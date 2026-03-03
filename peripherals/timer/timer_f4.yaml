@@ -1,3 +1,7 @@
+# Copyright 2024 The gd32-rs authors.
+#
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
 TIMER[1-4]:
   CTL0:
     CKDIV:
@@ -616,3 +620,132 @@ TIMER[1-4]:
     CH0EN:
       Disabled: [0, "Channel 0 capture / compare disabled."]
       Enabled: [1, "Channel 0 capture / compare enabled."]
+
+# Advanced timers (TIMER0, TIMER7) have all general-purpose timer features plus:
+# - Complementary outputs with dead-time insertion
+# - Break input functionality
+# - Repetition counter
+# - Additional idle state control
+
+"TIMER[07]":
+  # Inherit all registers from general-purpose timers
+  _derivedFrom: TIMER2
+  
+  # Advanced timer specific fields in CTL1
+  CTL1:
+    ISO3:
+      Low: [0, "CH3_O is low when POEN is reset"]
+      High: [1, "CH3_O is high when POEN is reset"]
+    ISO2N:
+      Low: [0, "CH2_ON is low when POEN is reset"]
+      High: [1, "CH2_ON is high when POEN is reset"]
+    ISO2:
+      Low: [0, "CH2_O is low (after dead-time if CH2_ON is implemented) when POEN is reset"]
+      High: [1, "CH2_O is high (after dead-time if CH2_ON is implemented) when POEN is reset"]
+    ISO1N:
+      Low: [0, "CH1_ON is low when POEN is reset"]
+      High: [1, "CH1_ON is high when POEN is reset"]
+    ISO1:
+      Low: [0, "CH1_O is low (after dead-time if CH1_ON is implemented) when POEN is reset"]
+      High: [1, "CH1_O is high (after dead-time if CH1_ON is implemented) when POEN is reset"]
+    ISO0N:
+      Low: [0, "CH0_ON is low when POEN is reset"]
+      High: [1, "CH0_ON is high when POEN is reset"]
+    ISO0:
+      Low: [0, "CH0_O is low (after dead-time if CH0_ON is implemented) when POEN is reset"]
+      High: [1, "CH0_O is high (after dead-time if CH0_ON is implemented) when POEN is reset"]
+    CCUC:
+      Default: [0, "Capture/compare shadow registers updated only by setting CMTG bit"]
+      WithRisingEdge: [1, "Capture/compare shadow registers updated by setting CMTG bit or when a rising edge occurs on TRGI"]
+    CCSE:
+      NotPreloaded: [0, "Shadow registers for CHxEN, CHxNEN and CHxCOMCTL bits disabled"]
+      Preloaded: [1, "Shadow registers for CHxEN, CHxNEN and CHxCOMCTL bits enabled"]
+  
+  # Advanced timer specific interrupt/DMA fields
+  DMAINTEN:
+    CMTDEN:
+      Disabled: [0, "Commutation DMA request disabled"]
+      Enabled: [1, "Commutation DMA request enabled"]
+    CMTIE:
+      Disabled: [0, "Commutation interrupt disabled"]
+      Enabled: [1, "Commutation interrupt enabled"]
+    BRKIE:
+      Disabled: [0, "Break interrupt disabled"]
+      Enabled: [1, "Break interrupt enabled"]
+  
+  # Advanced timer specific interrupt flags
+  INTF:
+    CMTIF:
+      Clear: [0, "No commutation event occurred"]
+      Commutation: [1, "Commutation event occurred"]
+    BRKIF:
+      Clear: [0, "No active level break detected"]
+      Break: [1, "Active level break detected"]
+  
+  # Advanced timer specific event generation
+  SWEVG:
+    CMTG:
+      Commutation: [1, "Generate a commutation event, updating capture/compare control registers based on CCSE"]
+    BRKG:
+      Break: [1, "Generate a break event"]
+  
+  # Complementary channel enable in CHCTL2
+  CHCTL2:
+    CH2NEN:
+      Disabled: [0, "Channel 2 complementary output disabled"]
+      Enabled: [1, "Channel 2 complementary output enabled"]
+    CH1NEN:
+      Disabled: [0, "Channel 1 complementary output disabled"]
+      Enabled: [1, "Channel 1 complementary output enabled"]
+    CH0NEN:
+      Disabled: [0, "Channel 0 complementary output disabled"]
+      Enabled: [1, "Channel 0 complementary output enabled"]
+  
+  # Counter repetition register
+  CREP:
+    CREP: [0, 0xFF]
+  
+  # Complementary channel protection register
+  CCHP:
+    POEN:
+      Disabled: [0, "Channel outputs disabled"]
+      Enabled: [1, "Channel outputs enabled"]
+    OAEN:
+      Manual: [0, "POEN cannot be set by hardware"]
+      Automatic: [1, "POEN can be set by hardware automatically at the next update event"]
+    BRKP:
+      Inverted: [0, "BRKIN is active low"]
+      NotInverted: [1, "BRKIN is active high"]
+    BRKEN:
+      Disabled: [0, "Break inputs disabled"]
+      Enabled: [1, "Break inputs enabled"]
+    ROS:
+      Disabled: [0, "When POEN is set, dead channel output signals are disabled"]
+      Enabled: [1, "When POEN is set, dead channel output signals are enabled"]
+    IOS:
+      Disabled: [0, "When POEN is reset, channel output signals are disabled"]
+      Enabled: [1, "When POEN is reset, channel output signals are enabled"]
+    PROT:
+      Disabled: [0, "Write protection disabled"]
+      Mode0: [1, "PROT mode 0. ISOx/ISOxN bits and BRKEN/BRKP/OAEN/DTCFG bits are write protected"]
+      Mode1: [2, "PROT mode 1. PROT mode 0 + CHxP/CHxNP and ROS/IOS bits are write protected"]
+      Mode2: [3, "PROT mode 2. PROT mode 1 + CHxCOMCTL/CHxCOMSEN bits are write protected"]
+    DTCFG: [0, 0xFF]
+  
+  # DMA configuration register
+  DMACFG:
+    DMATC: [0, 0x1F]
+    DMATA: [0, 0x1F]
+  
+  # DMA transfer buffer register  
+  DMATB:
+    DMATB: [0, 0xFFFF]
+  
+  # Configuration register
+  CFG:
+    CHVSEL:
+      Disabled: [0, "No effect"]
+      Enabled: [1, "If write CHxVAL value equals current value, write access is ignored"]
+    OUTSEL:
+      Disabled: [0, "No effect"]
+      Enabled: [1, "If POEN and IOS are 0, output is disabled"]

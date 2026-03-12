@@ -8,9 +8,10 @@ _modify:
   name: "GD32F403"
 
 _include:
-  - common_patches/gd32f30x.yaml
+  - common_patches/gd32f403_f4.yaml
   - ../peripherals/adc/adc_f3.yaml
-  - ../peripherals/can/can_f2_f3.yaml
+  - ../peripherals/can/can_f4.yaml
+  - ../peripherals/ctc/ctc_f4.yaml
   - ../peripherals/crc/crc.yaml
   - ../peripherals/dac/dac_f2_f3.yaml
   - ../peripherals/dbg/dbg_f2_f3.yaml

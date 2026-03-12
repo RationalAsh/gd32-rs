@@ -27,6 +27,10 @@ cp vendor/GD32F30x_XD.svd gd32f303.svd
 cp vendor/GD32F30x_CL.svd gd32f305.svd
 cp vendor/GD32F30x_CL.svd gd32f307.svd
 
+cp -f vendor/GD32F403.svd gd32f403.svd
+# Vendor file has leading whitespace before XML declaration; strip it so svdtools can parse it.
+sed -i.bak '1s/^[[:space:]]*//' gd32f403.svd
+rm -f gd32f403.svd.bak
 cp vendor/GD32F4xx.svd gd32f425.svd
 
 unzip -juLL vendor/gd32f207_svd.zip '**.svd'

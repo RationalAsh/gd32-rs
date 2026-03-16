@@ -155,6 +155,13 @@ gd32f4:
     rm_url: https://www.gigadevice.com/manual/gd32f403xxxx-user-manual/
     members:
       - GD32F403
+  gd32f407:
+    url: https://www.gigadevice.com/product/mcu/high-performance-mcus/gd32f4xx-series/gd32f407
+    rm: GD32F4xx
+    rm_title: GD32F4xx
+    rm_url: https://www.gigadevice.com/manual/gd32f4xx-user-manual/
+    members:
+      - GD32F407
   gd32f425:
     url: https://www.gigadevice.com/product/mcu/high-performance-mcus/gd32f4xx-series/gd32f425
     rm: GD32F425
